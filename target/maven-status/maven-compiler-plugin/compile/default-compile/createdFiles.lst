@@ -1,0 +1,3 @@
+br\com\casadocodigo\loja\beans\AdminLivrosBean.class
+br\com\casadocodigo\loja\models\Livro.class
+br\com\casadocodigo\loja\daos\LivroDao.class
