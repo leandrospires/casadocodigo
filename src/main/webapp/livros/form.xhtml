@@ -7,36 +7,81 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 	<h:form>
+		<h:messages />
+		<div>
+			<h:commandLink value="Página Principal" action="#{adminLivrosBean.navegar}">
+				<f:param name="pagina" value="/index" />
+			</h:commandLink>
+		</div>	
+	
 		<div>
 			<h:outputLabel value="Título" />
-			<h:inputText value="#{adminLivrosBean.livro.titulo}"/>
+			<h:inputText value="#{adminLivrosBean.livro.titulo}" 
+					required="true" id="titulo"/>
+			<h:message for="titulo" />
 		</div>
 
 		<div>
 			<h:outputLabel value="Descrição" />
-			<h:inputTextarea value="#{adminLivrosBean.livro.descricao}" rows="4" cols ="20" />
+			<h:inputTextarea value="#{adminLivrosBean.livro.descricao}" rows="4" cols ="20" 
+				required="true" requiredMessage="Descrição obrigatória!" id="descricao"/>
+			<h:message for="descricao" />
 		</div>
 
 		<div>
 			<h:outputLabel value="Número de Paginas" />
-			<h:inputText value="#{adminLivrosBean.livro.numeroPaginas}" />
+			<h:inputText value="#{adminLivrosBean.livro.numeroPaginas}"
+				required="true" requiredMessage="N. páginas obrigatória!"
+				validatorMessage="Número de páginas deve ser maior que 80!"
+				id="numeroPaginas">
+				<f:validateLongRange minimum="80"/>
+			</h:inputText>
+			<h:message for="numeroPaginas"/>
 		</div>
 
 		<div>
 			<h:outputLabel value="Preço" />
-			<h:inputText value="#{adminLivrosBean.livro.preco}" />
+			<h:inputText value="#{adminLivrosBean.livro.preco}" 
+				required="true" requiredMessage="Preço obrigatório!"
+				id="preco">
+			</h:inputText>
+			<h:message for="preco"/>
 		</div>
+		<!-- 	<f:validateDoubleRange minimum="0" maximum="150" />
+				validatorMessage="Preço do livro deve ser entre 0 e 150!" -->
 		<div>
 			<h:outputLabel value="Autores" />
-			<h:selectManyListbox value="#{adminLivrosBean.autoresId}"
-					converter="javax.faces.Integer">
+			<h:selectManyListbox value="#{adminLivrosBean.livro.autores}"
+					converter="autorConverter" id="autores">
 				<f:selectItems value="#{adminLivrosBean.autores}" 
 					var="autor"
-					itemValue="#{autor.id}" itemLabel="#{autor.nome}" />
+					itemValue="#{autor}" itemLabel="#{autor.nome}" />
 			</h:selectManyListbox>
+			<h:message for="autores"/>
 		</div>
+
+		<div>
+			<h:outputLabel value="Data de Publicação"/>
+			<h:inputText value="${adminLivrosBean.livro.dataPublicacao}" 
+				id="dataPublicacao" />
+
+			<h:message for="dataPublicacao" />
+		</div>
+
+		
+		<!-- 
+		<div>
+			<h:outputLabel value="Data de Publicação"/>
+			<h:inputText value="${adminLivrosBean.livro.dataPublicacao.time}" 
+				id="dataPublicacao">
+				<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+				</h:inputText>
+			<h:message for="dataPublicacao" />
+		</div>
+		 -->
 		
 		<h:commandButton value="Cadastrar" action="#{adminLivrosBean.salvar}"/>
+	
 	</h:form>
 
 

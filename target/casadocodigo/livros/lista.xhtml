@@ -36,13 +36,10 @@
 		<h:column>
 			<f:facet name="header">Autor</f:facet>
 			<ui:repeat value="#{livro.autores}" var="autor">
-			#{autor.nome}
+			#{autor.nome}, 
 			</ui:repeat>
 		</h:column>
-		<h:column>
-			<f:facet name="header">Data de Publição</f:facet>
-			#{livro.dataPublicacao.time}
-		</h:column>
+
 	</h:dataTable>
 </h:form>
 
