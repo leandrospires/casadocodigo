@@ -1,5 +1,6 @@
 package br.com.casadocodigo.loja.beans;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -8,10 +9,12 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.Part;
 import javax.transaction.Transactional;
 
 import br.com.casadocodigo.loja.daos.AutorDao;
 import br.com.casadocodigo.loja.daos.LivroDao;
+import br.com.casadocodigo.loja.infra.FileServer;
 import br.com.casadocodigo.loja.models.Autor;
 import br.com.casadocodigo.loja.models.Livro;
 
@@ -29,12 +32,18 @@ public class AdminLivrosBean {
 	@Inject
 	private FacesContext fc;
 	
+	private Part capaLivro;
+	
 	@Transactional
-	public String salvar() {
+	public String salvar() throws IOException {
 		
 		System.out.println(livro);
 		
 		livroDao.salvar(livro);
+		
+		FileServer fileServer = new FileServer();
+		
+		livro.setCapaPath(fileServer.write(capaLivro, "livros"));
 		
 		fc.getExternalContext().getFlash().setKeepMessages(true);
 		fc.addMessage(null, new FacesMessage("Livro cadastro com Sucesso!"));
@@ -43,6 +52,8 @@ public class AdminLivrosBean {
 		
 		return "/livros/lista?faces-redirect=true";
 	}
+
+
 	
 	public String navegar() {
 		
@@ -64,6 +75,14 @@ public class AdminLivrosBean {
 
 	public void setLivro(Livro livro) {
 		this.livro = livro;
+	}
+
+	public Part getCapaLivro() {
+		return capaLivro;
+	}
+
+	public void setCapaLivro(Part capaLivro) {
+		this.capaLivro = capaLivro;
 	}
 
 }

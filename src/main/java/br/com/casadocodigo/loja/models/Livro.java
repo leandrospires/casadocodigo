@@ -46,6 +46,9 @@ public class Livro {
 	private Calendar dataPublicacao;
 	//private Calendar dataPublicacao = Calendar.getInstance();
 	
+	
+	private String capaPath;
+	
 	@ManyToMany
 	@Size(min=1)
 	@NotNull
@@ -98,6 +101,14 @@ public class Livro {
 		return "Livro [id=" + id + ", titulo=" + titulo + ", descricao=" + descricao + ", preco=" + preco
 				+ ", numeroPaginas=" + numeroPaginas + ", dataPublicacao=" + dataPublicacao + ", autores=" + autores
 				+ "]";
+	}
+
+	public String getCapaPath() {
+		return capaPath;
+	}
+
+	public void setCapaPath(String capaPath) {
+		this.capaPath = capaPath;
 	}
 
 
