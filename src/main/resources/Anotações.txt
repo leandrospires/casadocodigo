@@ -1,3 +1,4 @@
+http://localhost:8080/casadocodigo/menu.xhtml
 http://localhost:8080/casadocodigo/index.xhtml
 
 cd /e/LeandroPires/Alura/JavaEE/casadocodigo/casadocodigo
