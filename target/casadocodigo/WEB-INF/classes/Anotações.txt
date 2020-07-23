@@ -1,9 +1,0 @@
-http://localhost:8080/casadocodigo/index.xhtml
-
-cd /e/LeandroPires/Alura/JavaEE/casadocodigo/casadocodigo
-
-git init
-git add .
-git commit -m "comentario"
-git remote add origin https://github.com/leandrospires/casadocodigo.git
-git push -u origin master

@@ -18,6 +18,8 @@ import br.com.casadocodigo.loja.infra.FileServer;
 @WebServlet("/file/*")
 public class FileServlet extends HttpServlet{
 	
+	private static final long serialVersionUID = 1L;
+
 	@Override
 	protected void service(
 				HttpServletRequest req, 
