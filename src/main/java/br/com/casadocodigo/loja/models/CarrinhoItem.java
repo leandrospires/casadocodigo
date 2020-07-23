@@ -3,11 +3,12 @@ package br.com.casadocodigo.loja.models;
 public class CarrinhoItem {
 
 	private Livro livro;
-	private Integer quantidade;
+	private Integer quantidade = 0;
 	
 	
 	public CarrinhoItem(Livro livro) {
 		this.livro = livro;
+		this.quantidade = this.quantidade + 1;
 	}
 	
 	public Livro getLivro() {
