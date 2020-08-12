@@ -72,6 +72,40 @@
 			<version>6.0.14.Final</version>
 		</dependency>
 
+		<!-- Utilizado para cachear consultas -->
+		<dependency>
+			<groupId>org.hibernate.javax.persistence</groupId>
+			<artifactId>hibernate-jpa-2.1-api</artifactId>
+			<version>1.0.0.Draft-16</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>4.3.10.Final</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>4.3.10.Final</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- Utilizado para cachear consultas -->
+
+		<dependency>
+			<groupId>javax.faces</groupId>
+			<artifactId>javax.faces-api</artifactId>
+			<version>2.2</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.omnifaces</groupId>
+			<artifactId>omnifaces</artifactId>
+			<version>2.1</version>
+		</dependency>
 
 	</dependencies>
 

@@ -12,7 +12,17 @@
 
         <!-- java transaction api || JNDI -->
         <jta-data-source>java:jboss/datasources/casadocodigoDS</jta-data-source>
+        
+        <!-- ALL: OPÇÃO PARA CACHE TODAS AS ENTIDADES -->
+        <!-- DISABLE_SELECTIVE:  TEM QUE DESABILITAR NA ENTIDADE -->
+        <!-- ENABLE_SELECTIVE: TEM QUE HABILITAR NA ENTIDADE COM A NOTAÇÃO @CACHEABLE -->
+        <shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
         <properties>
+        	<property name="hibernate.cache.infinispan.entity.expiration.lifespan"
+        			  value="900000"/>
+        	<property name="hibernate.cache.infinispan.entity.expiration.max_idle"
+        			  value="300000"/>
+        	<property name="hibernate.cache.use_query_cache" value="true"/>
             <property name="hibernate.hbm2ddl.auto" value="update"/>
             <property name="hibernate.show_sql" value="true" />
             <property name="hibernate.format_sql" value="true" />
