@@ -76,5 +76,13 @@ public class LivroDao {
 		//		.getSingleResult();
 	}
 
+	public List<Livro> todosLivros() {
+		String jpql = "select l from Livro l";
+		return manager.createQuery(jpql, Livro.class)
+				.setHint(QueryHints.HINT_CACHEABLE, true)
+				.setHint(QueryHints.HINT_CACHE_REGION, "home")
+				.getResultList();
+	}
+
 
 }
