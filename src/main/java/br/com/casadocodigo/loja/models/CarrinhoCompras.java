@@ -79,20 +79,13 @@ public class CarrinhoCompras implements Serializable {
 
 	public void finalizar(Compra compra) {
 
-
-		compra.setItens(this.toJson());
+		compra.setItens(toJson());
 		compra.setTotal(getTotal());
 		compraDao.salvar(compra);
-		
-		/*
-		new Thread(() -> {
-		}).start();
-		*/
-		
-
 	}
 
 	private String toJson() {
+
 		JsonArrayBuilder builder = Json.createArrayBuilder();
 		
 		for (CarrinhoItem item : itens) {
@@ -101,13 +94,10 @@ public class CarrinhoCompras implements Serializable {
 				.add("preco", item.getLivro().getPreco())
 				.add("quantidade", item.getQuantidade())
 				.add("total", getTotal(item))
-				);
+			);
 		}
 		
-		String json = builder.build().toString();
-		System.out.println(json);
-		
-		return json;
+		return builder.build().toString();
 	}
 	
 }

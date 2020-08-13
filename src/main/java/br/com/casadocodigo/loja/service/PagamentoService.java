@@ -17,6 +17,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 
 import br.com.casadocodigo.loja.daos.CompraDao;
+import br.com.casadocodigo.loja.infra.MailSender;
 import br.com.casadocodigo.loja.models.Compra;
 
 @Path("/pagamento")
@@ -33,6 +34,9 @@ public class PagamentoService {
 	
 	@Inject
 	private PagamentoGateway pagamentoGateway;
+
+	@Inject
+	private MailSender mailSender;
 	
 	//@Suspended: contexto assíncrono e libera a thread principal
 	
@@ -41,7 +45,7 @@ public class PagamentoService {
 	public void pagar(@Suspended final AsyncResponse ar, 
 						@QueryParam("uuid") String uuid) {
 		
-		String contextPath =context.getContextPath();
+		String contextPath = context.getContextPath();
 		
 		//   -> Lambda
 		executor.submit(() -> {
@@ -55,7 +59,15 @@ public class PagamentoService {
 					.queryParam("msg", "Compra Realizada comSuceso")
 					.build();
 			
-				Response response = Response.seeOther(responseUri).build();				
+				Response response = Response.seeOther(responseUri).build();
+				
+				String messageBody = "Sua compra foi efetivada com Sucesso! Pedido N: " + compra.getUuid();
+				
+				mailSender.send("compras@casadocodigo.com.br",
+								compra.getUsuario().getEmail(),
+								"Nova Compra na CDC",
+								messageBody);
+				
 				ar.resume(response);				
 
 			} catch (Exception e) {

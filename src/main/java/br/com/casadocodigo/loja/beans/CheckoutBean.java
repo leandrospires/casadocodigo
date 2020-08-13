@@ -23,24 +23,14 @@ public class CheckoutBean {
 	
 	@Transactional
 	public void finalizar() {
-
 		Compra compra = new Compra();
 		compra.setUsuario(usuario);
-		
 		carrinho.finalizar(compra);
 		
 		String contextName = facesContext.getExternalContext().getRequestContextPath();
-		HttpServletResponse response = 
-				(HttpServletResponse) facesContext.getExternalContext().getResponse();
-		
-		response.setStatus(HttpServletResponse.SC_TEMPORARY_REDIRECT); //307 := redirecionamento temporário
-		response.setHeader("Location", contextName + 
-				"/services/pagamento?uuid=" + compra.getUuid() );
-		
-		/*
-		String response = pagamentoGateway.pagar( getTotal() );
-		System.out.println("RESP: " + response);
-		*/
+		HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
+		response.setStatus(HttpServletResponse.SC_TEMPORARY_REDIRECT);
+		response.setHeader("Location", contextName + "/" + "services/pagamento?uuid=" + compra.getUuid());
 	}
 
 	public Usuario getUsuario() {
