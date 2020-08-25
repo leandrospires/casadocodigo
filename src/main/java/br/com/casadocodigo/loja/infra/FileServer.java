@@ -23,6 +23,8 @@ public class FileServer {
 
 		String relativePath = path + "/" + arquivo.getSubmittedFileName();
 
+		System.out.println("Entrou FileServer.write: " + relativePath);
+		
 		File file = new File(SERVER_PATH + "/" + relativePath);
 		
 		try {

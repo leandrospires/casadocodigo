@@ -7,6 +7,7 @@
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.xhtm</welcome-file>
 		<welcome-file>index.jsp</welcome-file>
 		<welcome-file>default.html</welcome-file>
 		<welcome-file>default.htm</welcome-file>
@@ -17,6 +18,27 @@
 		<param-name>org.omnifaces.CACHE_SETTING_APPLICATION_TTL</param-name>
 		<param-value>900</param-value>
 	</context-param>
-
-
+	
+	<security-constraint>
+		<display-name>Administration</display-name>
+		<web-resource-collection>
+			<web-resource-name>administration</web-resource-name>
+			<description>URLs que levam para adm do Portal</description>			
+			<url-pattern>/livros/*</url-pattern>
+			<http-method>GET</http-method>
+			<http-method>POST</http-method>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>ADMIN</role-name>
+		</auth-constraint>
+	</security-constraint>
+	
+	<login-config>
+		<auth-method>FORM</auth-method>
+		<form-login-config>
+			<form-login-page>/usuarios/login.xhtml</form-login-page>
+			<form-error-page>/usuarios/login.xhtml</form-error-page>
+		</form-login-config>
+	</login-config>
+	
 </web-app>

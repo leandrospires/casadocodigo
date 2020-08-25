@@ -37,12 +37,15 @@ public class AdminLivrosBean {
 	@Transactional
 	public String salvar() throws IOException {
 		
+		System.out.println("AdminLivrosBean.salvar: Listando Inf do Livro");
 		System.out.println(livro);
 		
 		livroDao.salvar(livro);
 		
+		System.out.println("AdminLivrosBean.salvar: chamando classe FileServer");
 		FileServer fileServer = new FileServer();
 		
+		System.out.println("AdminLivrosBean.salvar: chama método setCapaPath");
 		livro.setCapaPath(fileServer.write(capaLivro, "livros"));
 		
 		fc.getExternalContext().getFlash().setKeepMessages(true);

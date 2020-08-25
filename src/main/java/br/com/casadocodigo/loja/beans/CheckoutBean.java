@@ -3,6 +3,7 @@ package br.com.casadocodigo.loja.beans;
 import javax.enterprise.inject.Model;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
@@ -27,10 +28,19 @@ public class CheckoutBean {
 		compra.setUsuario(usuario);
 		carrinho.finalizar(compra);
 		
+		String serverStr = "127.0.0.1";
+		
 		String contextName = facesContext.getExternalContext().getRequestContextPath();
 		HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
 		response.setStatus(HttpServletResponse.SC_TEMPORARY_REDIRECT);
-		response.setHeader("Location", contextName + "/" + "services/pagamento?uuid=" + compra.getUuid());
+		
+		serverStr = facesContext.getExternalContext().getRequestServerName();
+		System.out.println("CheckoutBean.finalizar: " + serverStr);
+		
+		response.setHeader("Location", contextName + "/" + 
+									"services/pagamento?uuid=" 
+									+ compra.getUuid() + "&"
+									+ "serverStr=" + serverStr);
 	}
 
 	public Usuario getUsuario() {

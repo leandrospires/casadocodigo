@@ -5,6 +5,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import javax.annotation.Resource;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.jms.Destination;
 import javax.jms.JMSContext;
@@ -28,62 +29,58 @@ public class PagamentoService {
 
 	@Context
 	private ServletContext context;
-	
+
 	private static ExecutorService executor = Executors.newFixedThreadPool(50);
 	// 50: pool disponível
-	
+
 	@Inject
 	private PagamentoGateway pagamentoGateway;
-	
-    @Inject
-    private JMSContext jmsContext;
+
+	@Inject
+	private JMSContext jmsContext;
 	
 	@Inject
-	private CompraDao compraDao;		
-	
-	@Resource(name="java:/jms/topics/CarrinhoComprasTopico")
-	private Destination destination;
+	private FacesContext facesContext;
 
-	//@Suspended: contexto assíncrono e libera a thread principal
+	@Inject
+	private CompraDao compraDao;
+
+	@Resource(name = "java:/jms/topics/CarrinhoComprasTopico")
+	private Destination destination;
 	
-	
+	private String serverStr;
+
+	// @Suspended: contexto assíncrono e libera a thread principal
+
 	@POST
 	public void pagar(@Suspended final AsyncResponse ar, 
-						@QueryParam("uuid") String uuid) {
-		
+						@QueryParam("uuid") String uuid,
+						@QueryParam("serverStr") String serverStrRec)
+	{
 		Compra compra = compraDao.buscaPorUuid(uuid);
-		
+
 		String contextPath = context.getContextPath();
 		
-		JMSProducer producer = jmsContext.createProducer();
+		serverStr = serverStrRec;
+		serverStr = "http://" + serverStr + ":8080";
 		
-		//   -> Lambda
+		System.out.println("PagamentoService.pagar: " + serverStr);
+		
+		JMSProducer producer = jmsContext.createProducer();
+		//   -> Lambda - execução em segundo plano
 		executor.submit(() -> {
-			
 			try {
-				
-				String resposta = pagamentoGateway.pagar(compra.getTotal());
-				
 				producer.send(destination, compra.getUuid());
-				
-				URI responseUri = UriBuilder.fromPath("http://localhost:8080" +
-						contextPath + "/index.xhtml")
-					.queryParam("msg", "Compra Realizada comSuceso")
-					.build();
-			
+
+				URI responseUri = UriBuilder.fromPath(serverStr + contextPath + "/index.xhtml")
+						.queryParam("msg", "Compra Realizada comSuceso").build();
 				Response response = Response.seeOther(responseUri).build();
-				
-				ar.resume(response);				
-
+				ar.resume(response);
 			} catch (Exception e) {
-
 				ar.resume(new WebApplicationException(e));
-				
 			}
-
 		});
 
-		
 	}
-	
+
 }

@@ -22,6 +22,7 @@ public class LivroDao {
 	private static final Integer LANCAMENTO = 3; 
 	
 	public void salvar(Livro livro) {
+		System.out.println("Entrou: LivroDao.salvar");
 		manager.persist(livro);
 	}
 
@@ -45,21 +46,22 @@ public class LivroDao {
 	}
 	
 	public List<Livro> ultimosLancamentos() {
-
+		System.out.println("LivroDao.ultimosLancamentos: Entrou");
 		String jpql = "select l from Livro l order by l.id desc";
 		return manager.createQuery(jpql, Livro.class)
 				.setMaxResults(LANCAMENTO)
 				.setHint(QueryHints.HINT_CACHEABLE, true)
-				.setHint(QueryHints.HINT_CACHE_REGION, "home")
+				//.setHint(QueryHints.HINT_CACHE_REGION, "home")
 				.getResultList();
 	}
 
 	public List<Livro> demaisLivros() {
+		System.out.println("LivroDao.demaisLivros: Entrou");
 		String jpql = "select l from Livro l order by l.id desc";
 		return manager.createQuery(jpql, Livro.class)
 				.setFirstResult(LANCAMENTO)
 				.setHint(QueryHints.HINT_CACHEABLE, true)
-				.setHint(QueryHints.HINT_CACHE_REGION, "home")
+				//.setHint(QueryHints.HINT_CACHE_REGION, "home")
 				.getResultList();
 	}
 
