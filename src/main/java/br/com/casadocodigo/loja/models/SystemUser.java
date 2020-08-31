@@ -10,26 +10,21 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
-import org.hibernate.validator.constraints.Email;
-
 @Entity
 public class SystemUser {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-	@SuppressWarnings("deprecation")
-	@Email
-	private String email;
-	
-	private String senha;
-	
+    private String email;
+
+    private String senha;
+    
 	@ManyToMany(fetch=FetchType.EAGER)
 	private List<SystemRole> roles = new ArrayList<>();
-	
-	
-	public Integer getId() {
+
+    public Integer getId() {
 		return id;
 	}
 
@@ -52,5 +47,6 @@ public class SystemUser {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
+
 
 }

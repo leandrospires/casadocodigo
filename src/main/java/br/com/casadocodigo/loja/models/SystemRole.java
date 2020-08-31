@@ -5,26 +5,22 @@ import javax.persistence.Id;
 
 @Entity
 public class SystemRole {
-	
-	@Id
-	private Integer id;
-	
-	private String name;
-	
-	@Deprecated
-	public SystemRole() {}
-	
-	public SystemRole(String name) {
-		this.setName(name);
-		
-	}
 
-	public String getName() {
-		return name;
-	}
+    @Id
+    private String name;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public SystemRole() {
+    }
 
+    public SystemRole(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }
