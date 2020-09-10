@@ -306,9 +306,14 @@
 	</footer>
 	
 	<script>
-	
-		var canalDePromos = new WebSocket(
-				"ws://localhost:8080/#{request.contextPath}/canal/promos");
+		
+		var usUri2 = "#{request.requestURL.substring(4, request.requestURL.length() - request.requestURI.length())}/";
+		
+		var usUri = "ws" + usUri2 + "#{request.contextPath}/canal/promos";
+		
+		console.log("usUri: " + usUri);
+		
+		var canalDePromos = new WebSocket(usUri);
 		
 		canalDePromos.onmessage = function(message) {
 			console.log(message);
