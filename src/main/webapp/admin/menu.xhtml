@@ -12,18 +12,12 @@
 	<h:outputStylesheet library="css" name="style-admin.css" />
 </h:head>
 
-<h:body>
-	<div class="container">
 
-		<!-- <nav class="navbar navbar-inverse navbar-fixed-top"> -->
+<ui:composition template="/templates/_admin_template.xhtml">
 
-		<nav class="navbar navbar-default navbar-fixed-top">
-			<div class="container">
-				<div class="navbar-header">
-					<a class="navbar-brand" href="#">Casa do Código</a>
-				</div>
-			</div>
-		</nav>
+	<ui:param name="menu" value="active" />
+
+	<ui:define name="body">
 
 		<h1>Menu Inicial</h1>
 		<h:form>
@@ -38,27 +32,22 @@
 			<div>
 				<h:commandLink value="Cadastro de Livros"
 					action="#{adminLivrosBean.navegar}">
-					<f:param name="pagina" value="/livros/form" />
+					<f:param name="pagina" value="/admin/livros/form" />
 				</h:commandLink>
 			</div>
 
 			<div>
 				<h:commandLink value="Listagem de Livros"
 					action="#{adminLivrosBean.navegar}">
-					<f:param name="pagina" value="/livros/lista" />
+					<f:param name="pagina" value="/admin/livros/lista" />
 				</h:commandLink>
 			</div>
-			
-			<div>
-				<h:commandLink value="Carrinho"
-					action="#{adminLivrosBean.navegar}">
-					<f:param name="pagina" value="/carrinho" />
-				</h:commandLink>
-			</div>			
-		</h:form>
-	</div>
 
-</h:body>
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>
 
 
 

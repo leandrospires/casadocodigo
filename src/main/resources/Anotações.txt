@@ -11,18 +11,3 @@ git remote add origin https://github.com/leandrospires/casadocodigo.git
 git push -u origin master
 
 
-
-
-		<dependency>
-			<groupId>org.jboss.resteasy</groupId>
-			<artifactId>resteasy-multipart-provider</artifactId>
-			<version>2.1-beta-1</version>
-			<scope>provided</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.jboss.resteasy</groupId>
-			<artifactId>resteasy-jaxrs</artifactId>
-			<version>4.0.0.Beta1</version>
-			<scope>provided</scope>
-		</dependency>

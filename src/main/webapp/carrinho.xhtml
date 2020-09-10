@@ -249,13 +249,13 @@
 					<c:choose>
 						<c:when test="#{currentUser.hasRole('ADMIN')}">
 							<li class="colecoesDaCDC-colecaoItem"><a
-								href="#{request.contextPath}/livros/lista.xhtml"
+								href="#{request.contextPath}/admin/menu.xhtml"
 								class="colecoesDaCDC-colecaoLink"> Administração </a></li>
 
 						</c:when>
 						<c:otherwise>
 							<li class="colecoesDaCDC-colecaoItem"><a
-								href="#{request.contextPath}/livros/lista.xhtml"
+								href="#{request.contextPath}/admin/menu.xhtml"
 								class="colecoesDaCDC-colecaoLink"> Login </a></li>
 						</c:otherwise>
 
